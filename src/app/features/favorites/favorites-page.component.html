@@ -1,0 +1,17 @@
+<section class="page" *ngIf="favorites$ | async as favorites">
+  <app-photo-grid
+    *ngIf="favorites.length; else empty"
+    [photos]="favorites"
+    actionLabel="Open photo"
+    (photoClick)="openPhoto($event)"
+    (photoIntent)="prefetchPhoto($event)"
+  ></app-photo-grid>
+
+  <ng-template #empty>
+    <div class="empty">
+      <app-icon name="favorite-outline" class="empty__icon"></app-icon>
+      <p>No favorites yet. Click a photo in the stream to save it here.</p>
+      <a mat-flat-button color="primary" routerLink="/">Browse photos</a>
+    </div>
+  </ng-template>
+</section>

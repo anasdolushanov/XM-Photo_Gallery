@@ -1,0 +1,48 @@
+<section class="detail" *ngIf="vm$ | async as vm">
+  <div class="detail__frame" [attr.aria-busy]="!isImageSettled(vm.id)">
+    <img
+      class="detail__placeholder"
+      [class.detail__placeholder--blurred]="!isImageSettled(vm.id)"
+      [src]="vm.placeholderUrl"
+      alt=""
+      aria-hidden="true"
+    />
+    <img
+      class="detail__image"
+      [class.detail__image--loaded]="isImageLoaded(vm.id)"
+      [sizes]="imageSizes"
+      [srcset]="vm.imageSrcset"
+      [src]="vm.imageUrl"
+      alt="Selected photo"
+      decoding="async"
+      fetchpriority="high"
+      (load)="onImageLoad(vm.id)"
+      (error)="onImageError(vm.id)"
+    />
+    <app-loader
+      *ngIf="!isImageSettled(vm.id)"
+      class="detail__progress"
+      label="Loading full size..."
+      [diameter]="32"
+    ></app-loader>
+  </div>
+
+  <div class="detail__actions">
+    <button
+      *ngIf="vm.isFavorite; else notFavorite"
+      mat-stroked-button
+      color="warn"
+      class="detail__remove"
+      (click)="removeFromFavorites(vm.id)"
+    >
+      <app-icon matButtonIcon name="delete" class="detail__button-icon"></app-icon>
+      Remove from favorites
+    </button>
+    <ng-template #notFavorite>
+      <button mat-flat-button color="primary" class="detail__add" (click)="addToFavorites(vm.id)">
+        <app-icon matButtonIcon name="favorite" class="detail__button-icon"></app-icon>
+        Add to favorites
+      </button>
+    </ng-template>
+  </div>
+</section>

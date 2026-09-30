@@ -1,0 +1,68 @@
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+// Sized up front from the photo's 2:3 ratio, so nothing jumps when the images arrive.
+// The width mirrors FULL_SIZE_SIZES in photo.service.ts: the page width, or the viewport
+// height left under the header, page padding and action row, whichever is smaller.
+.detail__frame {
+  position: relative;
+  width: min(100%, max(240px, calc((100vh - 200px) * 2 / 3)));
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--app-placeholder);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.detail__placeholder,
+.detail__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail__placeholder {
+  transition: filter 300ms ease, transform 300ms ease;
+
+  // A small thumbnail scaled up looks soft; blur it on purpose so it reads as "loading".
+  // The slight scale hides the blur's faded edges inside the frame.
+  &--blurred {
+    filter: blur(10px);
+    transform: scale(1.06);
+  }
+}
+
+.detail__image {
+  opacity: 0;
+  transition: opacity 300ms ease;
+
+  &--loaded {
+    opacity: 1;
+  }
+}
+
+// Small chip over the blurred placeholder, so a slow download still reads as "working".
+.detail__progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+.detail__button-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}

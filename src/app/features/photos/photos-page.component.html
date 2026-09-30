@@ -1,0 +1,12 @@
+<section class="page">
+  <app-photo-grid
+    [photos]="photos"
+    [favoriteIds]="(favoriteIds$ | async) ?? emptyIds"
+    actionLabel="Add to favorites"
+    (photoClick)="addToFavorites($event)"
+  ></app-photo-grid>
+
+  <app-loader *ngIf="loading"></app-loader>
+
+  <div class="sentinel" appInfiniteScroll [disabled]="loading" (scrolled)="loadMore()"></div>
+</section>

@@ -1,0 +1,15 @@
+<ul class="grid">
+  <li *ngFor="let photo of photos; trackBy: trackById" class="grid__item">
+    <button
+      type="button"
+      class="grid__button"
+      [attr.aria-label]="actionLabel"
+      (click)="photoClick.emit(photo)"
+      (pointerenter)="photoIntent.emit(photo)"
+      (focus)="photoIntent.emit(photo)"
+    >
+      <img class="grid__image" [src]="photo.url" alt="Random photo" loading="lazy" width="200" height="300" />
+      <app-icon *ngIf="favoriteIds.has(photo.id)" name="favorite" class="grid__badge"></app-icon>
+    </button>
+  </li>
+</ul>

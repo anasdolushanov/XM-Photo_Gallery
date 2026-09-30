@@ -1,0 +1,24 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  justify-content: center;
+}
+
+.header__nav {
+  display: flex;
+  gap: 16px;
+}
+
+.header__link {
+  min-width: 120px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+// Extra specificity to win over the toolbar theme, which sets the MDC button label color.
+.header__nav .header__link--active.mat-mdc-button {
+  --mdc-text-button-label-text-color: var(--app-primary);
+  color: var(--app-primary);
+  background: #fff;
+  font-weight: 600;
+}

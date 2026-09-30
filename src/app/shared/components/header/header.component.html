@@ -1,0 +1,15 @@
+<mat-toolbar class="header" color="primary">
+  <nav class="header__nav" aria-label="Main">
+    <a
+      *ngFor="let link of links"
+      mat-button
+      class="header__link"
+      [routerLink]="link.path"
+      routerLinkActive="header__link--active"
+      ariaCurrentWhenActive="page"
+      [routerLinkActiveOptions]="{ exact: link.exact }"
+    >
+      {{ link.label }}
+    </a>
+  </nav>
+</mat-toolbar>
